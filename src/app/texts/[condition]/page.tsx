@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import { useSearchParams } from "next/navigation";
+import { voiceOpnedContext } from "./layout";
 import Link from "next/link";
 
 export default function Home({
@@ -13,7 +14,8 @@ export default function Home({
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const searchParams = useSearchParams();
-
+  const { isVoiceOpned, setIsVoiceOpned, textOpned, setTextOpned } =
+    useContext<any>(voiceOpnedContext);
   const textsToRecord: { id: number; text: string; isDone: boolean }[] =
     condition == "all"
       ? [
@@ -84,7 +86,11 @@ export default function Home({
       <div className="flex flex-col gap-3 mb-5">
         {textsToRecord?.map((text) => {
           return (
-            <div
+            <button
+              onClick={() => {
+                setIsVoiceOpned(true);
+                setTextOpned(text);
+              }}
               key={text.id}
               className="bg-secondary justify-between p-6 flex items-center rounded-md gap-5"
             >
@@ -102,7 +108,7 @@ export default function Home({
                   <ImCheckboxUnchecked />
                 </div>
               )}
-            </div>
+            </button>
           );
         })}
       </div>
@@ -123,7 +129,7 @@ export default function Home({
           <Link
             href={`/texts/${condition}?page=${1}`}
             className={`join-item btn border-none text-white hover:bg-secondary ${
-              Number(searchParams.get("page")) == 1
+              (Number(searchParams.get("page")) || 1) == 1
                 ? "btn-disabled !bg-tertiary/80  !text-primary"
                 : "text-white hover:bg-secondary bg-secondary/60"
             }`}
