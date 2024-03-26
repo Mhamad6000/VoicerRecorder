@@ -17,6 +17,7 @@ const config: Config = {
         primary: "#131313",
         secondary: "#252525",
         tertiary: "#F6C76C",
+        quaternary: "#dfac45",
       },
     },
   },
