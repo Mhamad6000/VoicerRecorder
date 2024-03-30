@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import { useSearchParams } from "next/navigation";
 import { globalEndpoits } from "@/app/lib/endpoints";
 import VoicerRecorder from "../../sentences/components/VoiceRecorder";
-import RecordMp3 from "./NewVoiceRecorder";
 export default function Page({ params: { id } }) {
   const searchParams = useSearchParams();
   const sentenceInfo = useQuery({
