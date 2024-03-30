@@ -162,16 +162,6 @@ export default function Signup() {
               </Form>
             )}
           </Formik>
-
-          <p class="mt-6 text-center text-sm text-gray-500">
-            Not a member?
-            <Link
-              href="/auth/signup"
-              class="font-semibold leading-6 ms-1 text-quaternary hover:text-tertiary"
-            >
-              Sign Up
-            </Link>
-          </p>
         </div>
       </div>
     </div>
