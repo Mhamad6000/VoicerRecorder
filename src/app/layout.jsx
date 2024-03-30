@@ -3,7 +3,6 @@ import "./globals.css";
 import Providers from "./utils/Providers";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -30,7 +29,7 @@ export default function RootLayout({ children }) {
         />
 
         <Providers>
-          <div className="bg-primary">{children}</div>
+          <div className="bg-primary min-h-screen">{children}</div>
         </Providers>
       </body>
     </html>

@@ -31,6 +31,16 @@ body {
     text-wrap: balance;
   }
 }
-.cs{
+.cs {
   background-color: #dfac45;
+}
+.voice-visualizer__btn-left,
+.voice-visualizer__btn-center {
+  background-color: #dfac45 !important;
+}
+.voice-visualizer__btn {
+  background-color: #252525 !important;
+}
+.voice-visualizer__buttons-container {
+  display: none !important;
 }
