@@ -16,7 +16,7 @@ api.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     console.log("cccc", config)
-    if (config.url === "/file") {
+    if (config.url === "/file" && config.method === "post") {
       config.headers["Content-Type"] = "multipart/form-data";
     }
     return config;
