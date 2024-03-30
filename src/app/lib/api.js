@@ -15,6 +15,10 @@ api.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+    console.log("cccc", config)
+    if (config.url === "/file") {
+      config.headers["Content-Type"] = "multipart/form-data";
+    }
     return config;
   },
   (error) => {

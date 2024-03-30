@@ -18,13 +18,12 @@ const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const VoicerRecorder = ({ sentenceId }) => {
   // Initialize the recorder controls using the hook
   const [mp3audio, setMp3audio] = useState(null);
-  const recorderControls = useVoiceVisualizer();
+  const { recordedBlob, ...recorderControls } = useVoiceVisualizer();
   const postSentenceMutation = useMutation({
     mutationFn: globalEndpoits.postSentence,
   });
   const {
     // ... (Extracted controls and states, if necessary)
-    recordedBlob,
     error,
     audioRef,
     isAvailableRecordedAudio,
@@ -45,7 +44,7 @@ const VoicerRecorder = ({ sentenceId }) => {
       return;
     } else {
       Mp3Recorder?.start()
-        ?.then(() => {})
+        ?.then(() => { })
         .catch((e) => console.error(e));
     }
   };
@@ -80,10 +79,12 @@ const VoicerRecorder = ({ sentenceId }) => {
     console.error(error);
   }, [error]);
   function postSentenceFunction(values, { resetForm }) {
-    console.log(recordedBlob);
+    console.log("recorded", recordedBlob.type,);
+    const file = new File([recordedBlob], 'file.mp3')
+    console.log("fileeeeee", file,);
     postSentenceMutation.mutate(
       {
-        file: recordedBlob,
+        file: file,
         sentenceId: sentenceId,
       },
       {
