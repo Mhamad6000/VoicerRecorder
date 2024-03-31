@@ -7,7 +7,7 @@ import { IoClose } from "react-icons/io5";
 import VoicerRecorder from "./components/VoiceRecorder";
 import { usePathname } from "next/navigation";
 import Navbar from "./components/Navbar";
-export const voiceOpnedContext = createContext({});
+
 export default function Layout({
   children,
 }: Readonly<{
@@ -32,13 +32,7 @@ export default function Layout({
           </p>
         </div>
         <Navbar />
-        <div>
-          <voiceOpnedContext.Provider
-            value={{ isVoiceOpned, setIsVoiceOpned, textOpned, setTextOpned }}
-          >
-            {children}
-          </voiceOpnedContext.Provider>
-        </div>
+        <div>{children}</div>
       </div>
       {/* <div className={`bg-secondary p-6 ${isVoiceOpned ? "col-span-4" : ""}`}>
         <div className="flex justify-end items-center ">
