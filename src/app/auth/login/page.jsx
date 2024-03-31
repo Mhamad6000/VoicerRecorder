@@ -7,6 +7,7 @@ import { toast, Bounce } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { authEndpoits } from "@/app/lib/endpoints";
 import { useMutation } from "@tanstack/react-query";
+import { RiVoiceprintLine } from "react-icons/ri";
 export default function Signup() {
   const loginMutation = useMutation({ mutationFn: authEndpoits.login });
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function Signup() {
     });
     Cookies.set("auth_token", token);
     resetForm();
-    router.push("/");
+    router.push("/sentences/all");
   }
   const handleSubmit = (values, { resetForm }) => {
     loginMutation.mutate(
@@ -65,14 +66,9 @@ export default function Signup() {
     );
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-primary">
+    <div className="flex justify-center items-center min-h-[70vh] bg-primary">
       <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            class="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
           <h2 class="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Login to your account
           </h2>

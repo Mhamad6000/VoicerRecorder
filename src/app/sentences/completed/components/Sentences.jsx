@@ -5,8 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { globalEndpoits } from "@/app/lib/endpoints";
 import Pagination from "../../components/Pagination";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Cockies from "js-cookie";
 export default function Sentences({ sentencesData }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const sentencesInfo = useQuery({
     queryKey: ["todos", searchParams.get("page") || 1],
     queryFn: () =>
@@ -18,7 +21,8 @@ export default function Sentences({ sentencesData }) {
   });
   if (sentencesInfo?.isError) {
     if (sentencesInfo?.error?.response?.data?.error?.code == "NO_TOKEN") {
-      window.location.href = "/auth/login";
+      Cockies.remove("auth_token");
+      router.push("/auth/login");
     }
   }
   if (sentencesInfo?.isLoading)

@@ -3,6 +3,8 @@ import "./globals.css";
 import Providers from "./utils/Providers";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RiVoiceprintLine } from "react-icons/ri";
+import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -29,7 +31,29 @@ export default function RootLayout({ children }) {
         />
 
         <Providers>
-          <div className="bg-primary min-h-screen">{children}</div>
+          <div className="bg-primary">
+            <nav className="bg-primary  border-b border-gray-50/50 ">
+              <Link
+                href={"/"}
+                className="max-w-7xl block mx-auto px-4 md:px-8 lg:px-12 py-4"
+              >
+                <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+                  <RiVoiceprintLine className="inline-block text-4xl text-tertiary" />
+                  <span>
+                    V<span className="text-tertiary">o</span>i
+                    <span className="text-tertiary">c</span>e{" "}
+                    <span className="text-tertiary">R</span>e
+                    <span className="text-tertiary">c</span>o
+                    <span className="text-tertiary">r</span>d
+                    <span className="text-tertiary">e</span>r
+                  </span>
+                </h1>
+              </Link>
+            </nav>
+            <div className=" min-h-screen max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-6">
+              {children}
+            </div>
+          </div>
         </Providers>
       </body>
     </html>

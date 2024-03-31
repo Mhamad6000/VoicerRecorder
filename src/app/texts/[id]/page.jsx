@@ -30,7 +30,7 @@ export default function Page({ params: { id } }) {
     );
   console.log(sentenceInfo);
   return (
-    <div className="flex min-h-screen flex-col py-10 px-4 md:px-8 lg:px-12 bg-primary  text-gray-100 max-w-7xl mx-auto">
+    <div className="flex flex-col bg-primary  text-gray-100">
       <h1 className="text-white text-right text-2xl mb-5">
         <span className="text-tertiary mr-2">"</span>
         {sentenceInfo?.data?.sentence?.content}

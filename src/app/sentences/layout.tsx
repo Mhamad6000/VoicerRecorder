@@ -24,12 +24,8 @@ export default function Layout({
 
   return (
     <div className="grid grid-cols-12 min-h-screen  bg-primary  text-gray-100 max-w-7xl mx-auto">
-      <div className={`flex flex-col py-10 px-4 md:px-8 lg:px-12 col-span-12`}>
+      <div className={`flex flex-col col-span-12`}>
         <div className="mb-8">
-          <h1 className="text-4xl lg:text-6xl font-bold uppercase text-tertiary mb-1">
-            voice collecter
-          </h1>
-
           <p className="max-w-lg ">
             here are all available texts for you to record , please be somewhere
             quiet while you record so we have a better voice record.
