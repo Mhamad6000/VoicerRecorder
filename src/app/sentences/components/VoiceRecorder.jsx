@@ -105,7 +105,7 @@ const VoicerRecorder = ({ sentenceId }) => {
         },
         onSuccess: () => {
           resetForm();
-          toast.success("User created successfully.", {
+          toast.success("Voice Recorded successfully.", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
