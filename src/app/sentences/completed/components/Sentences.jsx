@@ -29,7 +29,7 @@ export default function Sentences({ sentencesData }) {
     return (
       <div className="flex w-full justify-center items-center min-h-[600px]">
         <div className="">
-          <span class="loading loading-dots loading-lg text-tertiary"></span>
+          <span className="loading loading-dots loading-lg text-tertiary"></span>
         </div>
       </div>
     );

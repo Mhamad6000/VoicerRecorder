@@ -24,7 +24,7 @@ export default function Page({ params: { id } }) {
     return (
       <div className="flex w-full justify-center items-center min-h-[600px]">
         <div className="">
-          <span class="loading loading-dots loading-lg text-tertiary"></span>
+          <span className="loading loading-dots loading-lg text-tertiary"></span>
         </div>
       </div>
     );
@@ -32,9 +32,9 @@ export default function Page({ params: { id } }) {
   return (
     <div className="flex flex-col bg-primary  text-gray-100">
       <h1 className="text-white text-right text-2xl mb-5">
-        <span className="text-tertiary mr-2">"</span>
+        <span className="text-tertiary mr-2">&quot;</span>
         {sentenceInfo?.data?.sentence?.content}
-        <span className="text-tertiary ml-2">"</span>
+        <span className="text-tertiary ml-2">&quot;</span>
       </h1>
       {/* <RecordMp3 /> */}
       <VoicerRecorder sentenceId={id} />
