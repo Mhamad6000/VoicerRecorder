@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 export default function Sentences({ sentencesData }) {
   const searchParams = useSearchParams();
   const sentencesInfo = useQuery({
-    queryKey: ["todos", searchParams.get("page") || 1],
+    queryKey: ["sentences", searchParams.get("page") || 1],
     queryFn: () =>
       globalEndpoits.sentences({
         perPage: 20,

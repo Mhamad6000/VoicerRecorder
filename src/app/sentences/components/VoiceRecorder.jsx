@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Cookies from "js-cookie";
 import { toast, Bounce } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { globalEndpoits } from "@/app/lib/endpoints";
 import MicRecorder from "mic-recorder-to-mp3";
 import { hasAudioSupport } from "./hasAudioSupport";
@@ -18,6 +18,7 @@ const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const VoicerRecorder = ({ sentenceId }) => {
   // Initialize the recorder controls using the hook
   const [mp3audio, setMp3audio] = useState(null);
+  const queryClient = useQueryClient();
   const { recordedBlob, ...recorderControls } = useVoiceVisualizer();
   const postSentenceMutation = useMutation({
     mutationFn: globalEndpoits.postSentence,
@@ -44,7 +45,7 @@ const VoicerRecorder = ({ sentenceId }) => {
       return;
     } else {
       Mp3Recorder?.start()
-        ?.then(() => { })
+        ?.then(() => {})
         .catch((e) => console.error(e));
     }
   };
@@ -79,9 +80,8 @@ const VoicerRecorder = ({ sentenceId }) => {
     console.error(error);
   }, [error]);
   function postSentenceFunction(values, { resetForm }) {
-    console.log("recorded", recordedBlob.type,);
-    const file = new File([recordedBlob], 'file.mp3')
-    console.log("fileeeeee", file,);
+    const file = new File([recordedBlob], "file.mp3");
+
     postSentenceMutation.mutate(
       {
         file: file,
@@ -118,6 +118,7 @@ const VoicerRecorder = ({ sentenceId }) => {
             transition: Bounce,
           });
           router.push("/auth/login");
+          queryClient?.invalidateQueries("sentences");
         },
       }
     );

@@ -28,7 +28,7 @@ export default function Page({ params: { id } }) {
         </div>
       </div>
     );
-  console.log(sentenceInfo);
+
   return (
     <div className="flex flex-col bg-primary  text-gray-100">
       <h1 className="text-white text-right text-2xl mb-5">

@@ -11,7 +11,7 @@ export default function Sentences({ sentencesData }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sentencesInfo = useQuery({
-    queryKey: ["todos", searchParams.get("page") || 1],
+    queryKey: ["sentences", searchParams.get("page") || 1],
     queryFn: () =>
       globalEndpoits.completedSentences({
         perPage: 20,
