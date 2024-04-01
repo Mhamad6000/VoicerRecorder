@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 import { useSearchParams } from "next/navigation";
 import { globalEndpoits } from "@/app/lib/endpoints";
 import VoicerRecorder from "../../sentences/components/VoiceRecorder";
+import Link from "next/link";
+import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 export default function Page({ params: { id } }) {
   const searchParams = useSearchParams();
   const sentenceInfo = useQuery({
@@ -28,9 +30,9 @@ export default function Page({ params: { id } }) {
         </div>
       </div>
     );
-
+  console.log(sentenceInfo?.data);
   return (
-    <div className="flex flex-col bg-primary  text-gray-100">
+    <div className="flex flex-col bg-primary  text-gray-100 h-full">
       <h1 className="text-white text-right text-2xl mb-5">
         <span className="text-tertiary mr-2">&quot;</span>
         {sentenceInfo?.data?.sentence?.content}
@@ -38,6 +40,22 @@ export default function Page({ params: { id } }) {
       </h1>
       {/* <RecordMp3 /> */}
       <VoicerRecorder sentenceId={id} />
+      <div className="flex justify-between items-center mt-40">
+        <Link
+          href={`/texts/${sentenceInfo?.data?.prevSentence?.id}`}
+          className="bg-quaternary px-8 sm:px-10 py-2 text-primary font-semibold rounded-md flex justify-center items-center"
+        >
+          <GrFormPrevious className="inline-block text-2xl" />
+          Prev
+        </Link>
+        <Link
+          href={`/texts/${sentenceInfo?.data?.nextSentence?.id}`}
+          className="bg-quaternary px-8 sm:px-10 py-2 text-primary font-semibold rounded-md flex justify-center items-center"
+        >
+          Next
+          <GrFormNext className="inline-block text-2xl" />
+        </Link>
+      </div>
     </div>
   );
 }
