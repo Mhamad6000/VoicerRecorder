@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
 
         <Providers>
           <div className="bg-primary">
-            <nav className="bg-primary  border-b border-gray-50/50 ">
+            <nav className="bg-primary relative z-[1000]  border-b border-gray-50/50 ">
               <Link
                 href={"/"}
                 className="max-w-7xl block mx-auto px-4 md:px-8 lg:px-12 py-4"

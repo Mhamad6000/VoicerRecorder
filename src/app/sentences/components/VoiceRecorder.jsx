@@ -127,7 +127,7 @@ const VoicerRecorder = ({ sentenceId }) => {
       <div className="flex justify-center items-center gap-5">
         {isAvailableRecordedAudio && (
           <button
-            className="rounded-full bg-quaternary h-14 w-14 flex justify-center items-center text-white "
+            className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
             onClick={togglePauseResume}
           >
             {isPausedRecordedAudio ? (
@@ -140,7 +140,7 @@ const VoicerRecorder = ({ sentenceId }) => {
 
         {!isRecordingInProgress && !isAvailableRecordedAudio && (
           <button
-            className="rounded-full bg-quaternary h-14 w-14 flex justify-center items-center text-white "
+            className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
             onClick={() => {
               startRecording();
               start();
@@ -151,7 +151,7 @@ const VoicerRecorder = ({ sentenceId }) => {
         )}
         {isRecordingInProgress && (
           <button
-            className="rounded-full bg-quaternary h-14 w-14 flex justify-center items-center text-white "
+            className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
             onClick={() => {
               stopRecording();
               stop();
@@ -161,7 +161,7 @@ const VoicerRecorder = ({ sentenceId }) => {
           </button>
         )}
         <button
-          className="rounded-full bg-quaternary h-14 w-14 flex justify-center items-center text-white "
+          className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
           onClick={() => {
             clearCanvas();
             deleteMp3();
@@ -183,7 +183,7 @@ const VoicerRecorder = ({ sentenceId }) => {
             {isAvailableRecordedAudio && (
               <button
                 type="submit"
-                className="bg-quaternary text-primary py-2 px-10 rounded-md "
+                className="bg-secondary text-white py-2 px-10 rounded-md "
               >
                 Submit
               </button>

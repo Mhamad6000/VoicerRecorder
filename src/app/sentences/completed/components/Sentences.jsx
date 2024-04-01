@@ -5,11 +5,15 @@ import { useQuery } from "@tanstack/react-query";
 import { globalEndpoits } from "@/app/lib/endpoints";
 import Pagination from "../../components/Pagination";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import Cockies from "js-cookie";
+import { useState } from "react";
+import VoiceModal from "../../components/VoiceModal";
+import { IoClose } from "react-icons/io5";
+import { get } from "http";
+import { set } from "zod";
 export default function Sentences({ sentencesData }) {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const [activeSentence, setActiveSentence] = useState();
+  const [sentenceIndex, setSentenceIndex] = useState(0);
   const sentencesInfo = useQuery({
     queryKey: ["sentences", searchParams.get("page") || 1],
     queryFn: () =>
@@ -19,10 +23,17 @@ export default function Sentences({ sentencesData }) {
       }),
     // initialData: sentencesData,
   });
+  function getSentences(index) {
+    return {
+      prev: sentencesInfo?.data?.data[index - 1],
+      current: sentencesInfo?.data?.data[index],
+      next: sentencesInfo?.data?.data[index + 1],
+    };
+  }
+
   if (sentencesInfo?.isError) {
     if (sentencesInfo?.error?.response?.data?.error?.code == "NO_TOKEN") {
-      Cockies.remove("auth_token");
-      router.push("/auth/login");
+      window.location.href = "/auth/login";
     }
   }
   if (sentencesInfo?.isLoading)
@@ -37,10 +48,41 @@ export default function Sentences({ sentencesData }) {
   return (
     <div className="">
       <div className="flex flex-col gap-3 mb-5">
+        {/* Put this part before </body> tag */}
+        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+        <div className="modal" role="dialog">
+          <div className="bg-primary relative w-full h-full pt-24 ">
+            <div className="flex justify-end">
+              <label htmlFor="my_modal_7">
+                <IoClose className="text-4xl text-tertiary mr-10 mb-5" />
+              </label>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 ">
+              <VoiceModal
+                sentenceInfo={activeSentence}
+                sentenceIndex={sentenceIndex}
+                setSentenceIndex={setSentenceIndex}
+                setActiveSentence={setActiveSentence}
+                getSentences={getSentences}
+              />
+            </div>
+          </div>
+          <label
+            className="modal-backdrop h-screen w-screen absolute left-0 top-0  "
+            htmlFor="my_modal_7"
+          >
+            Close
+          </label>
+        </div>
         {sentencesInfo?.data?.data?.map((text, index) => {
           return (
-            <Link
-              href={`/texts/${text.id}`}
+            <label
+              htmlFor="my_modal_7"
+              onClick={() => {
+                setActiveSentence(getSentences(index));
+                setSentenceIndex(index);
+              }}
               key={text.id}
               className="bg-secondary justify-between p-6 flex items-center rounded-md gap-5"
             >
@@ -49,16 +91,10 @@ export default function Sentences({ sentencesData }) {
 
                 <p className="">{text.content}</p>
               </div>
-              {text?.completed ? (
-                <div className="text-2xl text-tertiary">
-                  <ImCheckboxChecked />
-                </div>
-              ) : (
-                <div className="text-2xl text-tertiary">
-                  <ImCheckboxUnchecked />
-                </div>
-              )}
-            </Link>
+              <div className="text-2xl text-tertiary">
+                <ImCheckboxChecked />
+              </div>
+            </label>
           );
         })}
       </div>
