@@ -2,7 +2,7 @@
 import VoicerRecorder from "./VoiceRecorder";
 import Link from "next/link";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
-import { set } from "zod";
+
 export default function VoiceModal({
   sentenceIndex,
   sentenceInfo,
@@ -41,7 +41,7 @@ export default function VoiceModal({
       </h1>
       {/* <RecordMp3 /> */}
       <VoicerRecorder sentenceId={sentenceInfo?.current?.id} />
-      <div className="flex justify-between items-center mt-40">
+      <div className="flex justify-between items-center mt-20">
         <button
           disabled={sentenceInfo?.prev == undefined}
           onClick={() => {

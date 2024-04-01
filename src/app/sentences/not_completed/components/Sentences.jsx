@@ -51,7 +51,7 @@ export default function Sentences({ sentencesData }) {
         {/* Put this part before </body> tag */}
         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
         <div className="modal" role="dialog">
-          <div className="bg-primary relative w-full h-full pt-24 ">
+          <div className="bg-primary relative w-full h-full pt-24 pb-10">
             <div className="flex justify-end">
               <label htmlFor="my_modal_7">
                 <IoClose className="text-4xl text-tertiary mr-10 mb-5" />
