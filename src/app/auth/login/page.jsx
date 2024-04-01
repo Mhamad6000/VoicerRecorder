@@ -95,7 +95,7 @@ export default function Signup() {
               <Form className="space-y-4">
                 <div>
                   <label
-                    for="username"
+                    htmlFor="username"
                     className="block text-sm font-medium leading-6 text-white"
                   >
                     Username
@@ -122,7 +122,7 @@ export default function Signup() {
                 <div>
                   <div className="flex items-center justify-between">
                     <label
-                      for="password"
+                      htmlFor="password"
                       className="block text-sm font-medium leading-6 text-white"
                     >
                       Password
