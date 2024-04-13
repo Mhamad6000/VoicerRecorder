@@ -108,7 +108,7 @@ export default function Signup() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.username}
-                      autocomplete="username"
+                      autoComplete="username"
                       className="block w-full rounded-md border-none py-1.5 px-2 text-white bg-secondary outline-none shadow-sm ring-1 ring-inset ring-transparent placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-quaternary sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -133,7 +133,7 @@ export default function Signup() {
                       id="password"
                       name="password"
                       type="password"
-                      autocomplete="current-password"
+                      autoComplete="current-password"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password}

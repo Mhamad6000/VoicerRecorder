@@ -82,7 +82,7 @@ const VoicerRecorder = ({ sentenceId }) => {
   function postSentenceFunction(values, { resetForm }) {
     postSentenceMutation.mutate(
       {
-        file: mp3audio,
+        file: recordedBlob,
         sentenceId: sentenceId,
       },
       {

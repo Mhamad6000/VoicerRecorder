@@ -106,7 +106,7 @@ export default function Sentences({ sentencesData }) {
       </div>
       <div className="">
         <Pagination
-          condition={"all"}
+          condition={"not_completed"}
           nextPage={sentencesInfo?.data?.nextPage}
           prevPage={sentencesInfo?.data?.previousPage}
         />
