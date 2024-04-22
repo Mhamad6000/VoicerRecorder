@@ -65,6 +65,7 @@ export default function Sentences({ sentencesData }) {
                 setSentenceIndex={setSentenceIndex}
                 setActiveSentence={setActiveSentence}
                 getSentences={getSentences}
+                condition={"completed"}
               />
             </div>
           </div>

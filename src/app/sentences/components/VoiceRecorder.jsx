@@ -14,6 +14,7 @@ import { FaStop } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
+import { useRouter } from "next/navigation";
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const VoicerRecorder = ({ sentenceId }) => {
   // Initialize the recorder controls using the hook
@@ -40,39 +41,7 @@ const VoicerRecorder = ({ sentenceId }) => {
   useEffect(() => {
     if (!recordedBlob) return;
   }, [recordedBlob, error]);
-  const start = () => {
-    if (!hasAudioSupport()) {
-      return;
-    } else {
-      Mp3Recorder?.start()
-        ?.then(() => {})
-        .catch((e) => console.error(e));
-    }
-  };
-
-  const stop = () => {
-    if (!hasAudioSupport()) {
-      return;
-    }
-
-    Mp3Recorder?.stop()
-      ?.getMp3()
-      ?.then(([buffer, blob]) => {
-        setMp3audio(blob);
-      })
-      ?.catch((e) => console.log(e));
-  };
-
-  const deleteMp3 = () => {
-    if (!hasAudioSupport()) {
-      return;
-    }
-    setMp3audio(null);
-    Mp3Recorder?.stop();
-
-    recorderControls.stopRecording();
-  };
-
+  const router = useRouter();
   // Get the error when it occurs
   useEffect(() => {
     if (!error) return;
@@ -87,7 +56,6 @@ const VoicerRecorder = ({ sentenceId }) => {
       },
       {
         onError: (err) => {
-          console.log(err);
           toast.error(err.response.data.message, {
             position: "top-right",
             autoClose: 5000,
@@ -103,6 +71,7 @@ const VoicerRecorder = ({ sentenceId }) => {
         },
         onSuccess: () => {
           resetForm();
+          clearCanvas();
           toast.success("Voice Recorded successfully.", {
             position: "top-right",
             autoClose: 5000,
@@ -115,7 +84,6 @@ const VoicerRecorder = ({ sentenceId }) => {
             className: "!bg-secondary",
             transition: Bounce,
           });
-          router.push("/auth/login");
           queryClient?.invalidateQueries("sentences");
         },
       }
@@ -143,7 +111,6 @@ const VoicerRecorder = ({ sentenceId }) => {
             className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
             onClick={() => {
               startRecording();
-              start();
             }}
           >
             <MdKeyboardVoice className="text-3xl" />
@@ -154,7 +121,6 @@ const VoicerRecorder = ({ sentenceId }) => {
             className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
             onClick={() => {
               stopRecording();
-              stop();
             }}
           >
             <FaStop className="text-xl" />
@@ -164,7 +130,6 @@ const VoicerRecorder = ({ sentenceId }) => {
           className="rounded-full bg-secondary h-14 w-14 flex justify-center items-center text-white "
           onClick={() => {
             clearCanvas();
-            deleteMp3();
           }}
         >
           <FaTrash className="text-xl" />

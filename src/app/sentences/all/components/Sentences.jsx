@@ -44,7 +44,7 @@ export default function Sentences({ sentencesData }) {
         </div>
       </div>
     );
-
+  console.log(sentencesInfo?.data?.data);
   return (
     <div className="">
       <div className="flex flex-col gap-3 mb-5">
@@ -60,6 +60,7 @@ export default function Sentences({ sentencesData }) {
 
             <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 ">
               <VoiceModal
+                condition={"all"}
                 sentenceInfo={activeSentence}
                 sentenceIndex={sentenceIndex}
                 setSentenceIndex={setSentenceIndex}

@@ -1,6 +1,8 @@
 "use client";
 import VoicerRecorder from "./VoiceRecorder";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 export default function VoiceModal({
@@ -9,7 +11,11 @@ export default function VoiceModal({
   setSentenceIndex,
   setActiveSentence,
   getSentences,
+  condition,
 }) {
+  const searchParams = useSearchParams();
+
+  const router = useRouter();
   // const sentenceInfo = useQuery({
   //   queryKey: ["singleSentence", searchParams.get("id")],
   //   queryFn: () =>
@@ -43,10 +49,17 @@ export default function VoiceModal({
       <VoicerRecorder sentenceId={sentenceInfo?.current?.id} />
       <div className="flex justify-between items-center mt-20">
         <button
-          disabled={sentenceInfo?.prev == undefined}
           onClick={() => {
-            setActiveSentence(getSentences(sentenceIndex - 1));
-            setSentenceIndex(sentenceIndex - 1);
+            if (sentenceInfo?.prev == undefined) {
+              router.push(
+                `/sentences/${condition}?page=${
+                  Number(searchParams.get("page") || 1) - 1
+                }`
+              );
+            } else {
+              setActiveSentence(getSentences(sentenceIndex - 1));
+              setSentenceIndex(sentenceIndex - 1);
+            }
           }}
           //   href={`/texts/${sentenceInfo?.prev?.id}`}
           className="bg-secondary px-8 disabled:opacity-60 disabled:cursor-not-allowed  sm:px-10 py-2 text-white font-semibold rounded-md flex justify-center items-center"
@@ -55,10 +68,17 @@ export default function VoiceModal({
           Prev
         </button>
         <button
-          disabled={sentenceInfo?.next == undefined}
           onClick={() => {
-            setActiveSentence(getSentences(sentenceIndex + 1));
-            setSentenceIndex(sentenceIndex + 1);
+            if (sentenceInfo?.next == undefined) {
+              router.push(
+                `/sentences/${condition}?page=${
+                  Number(searchParams.get("page") || 1) + 1
+                }`
+              );
+            } else {
+              setActiveSentence(getSentences(sentenceIndex + 1));
+              setSentenceIndex(sentenceIndex + 1);
+            }
           }}
           className="bg-secondary disabled:opacity-60 disabled:cursor-not-allowed px-8 sm:px-10 py-2 text-white font-semibold rounded-md flex justify-center items-center"
         >
