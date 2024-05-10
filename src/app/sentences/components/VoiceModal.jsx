@@ -40,7 +40,7 @@ export default function VoiceModal({
 
   return (
     <div className="flex flex-col bg-primary  text-gray-100 h-full">
-      <h1 className="text-white text-right text-2xl mb-5">
+      <h1 className="text-white text-right text-2xl mb-5" dir="rtl">
         <span className="text-tertiary mr-2">&quot;</span>
         {sentenceInfo?.current?.content}
         <span className="text-tertiary ml-2">&quot;</span>
