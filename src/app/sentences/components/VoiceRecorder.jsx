@@ -16,7 +16,7 @@ import { FaTrash } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
 import { useRouter } from "next/navigation";
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-const VoicerRecorder = ({ sentenceId }) => {
+const VoicerRecorder = ({ sentenceId, clearRecording, setClearRecording }) => {
   // Initialize the recorder controls using the hook
   const [mp3audio, setMp3audio] = useState(null);
   const queryClient = useQueryClient();
@@ -48,6 +48,12 @@ const VoicerRecorder = ({ sentenceId }) => {
 
     console.error(error);
   }, [error]);
+  useEffect(() => {
+    if (clearRecording) {
+      clearCanvas();
+      setClearRecording(false);
+    }
+  }, [clearRecording]);
   function postSentenceFunction(values, { resetForm }) {
     postSentenceMutation.mutate(
       {

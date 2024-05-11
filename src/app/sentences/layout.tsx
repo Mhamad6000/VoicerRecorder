@@ -7,6 +7,8 @@ import { IoClose } from "react-icons/io5";
 import VoicerRecorder from "./components/VoiceRecorder";
 import { usePathname } from "next/navigation";
 import Navbar from "./components/Navbar";
+import { useQuery } from "@tanstack/react-query";
+import { authEndpoits } from "../lib/endpoints";
 
 export default function Layout({
   children,
@@ -21,7 +23,15 @@ export default function Layout({
   const [isVoiceOpned, setIsVoiceOpned] = useState(false);
   const [textOpned, setTextOpned] = useState<text>();
   const router = useRouter();
+  const user = useQuery({
+    queryKey: ["me"],
+    queryFn: () => authEndpoits.getSession({}),
+    // initialData: sentencesData,
+  });
 
+  if (!user.data?.session && !user.isLoading) {
+    router.push("/auth/login");
+  }
   return (
     <div className="grid grid-cols-12 min-h-screen  bg-primary  text-gray-100 max-w-7xl mx-auto">
       <div className={`flex flex-col col-span-12`}>

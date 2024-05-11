@@ -16,7 +16,7 @@ export const authEndpoits = {
   me: async () => (await api.get("/auth/me")).data?.data,
   login: async (data) => (await api.post("/auth/login", data)).data,
   getSession: async (params) =>
-    (await api.get("/auth/session", { params })).data,
+    (await api.get("/auth/session", { params }))?.data,
   resendVerifyEmail: async () =>
     (await api.get("/auth/resend-email-verification-link")).data,
   resetPasswordRequest: async (data) =>

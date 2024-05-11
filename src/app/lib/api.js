@@ -15,10 +15,13 @@ api.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
-
+    if (token) {
+      config.headers["Apikey"] = token;
+    }
     if (config.url === "/file" && config.method === "post") {
       config.headers["Content-Type"] = "multipart/form-data";
     }
+
     return config;
   },
   (error) => {

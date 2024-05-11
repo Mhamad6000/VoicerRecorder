@@ -2,7 +2,7 @@
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { globalEndpoits } from "@/app/lib/endpoints";
+import { authEndpoits, globalEndpoits } from "@/app/lib/endpoints";
 import Pagination from "../../components/Pagination";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -23,6 +23,12 @@ export default function Sentences({ sentencesData }) {
       }),
     // initialData: sentencesData,
   });
+  const user = useQuery({
+    queryKey: ["me"],
+    queryFn: () => authEndpoits.getSession({}),
+    // initialData: sentencesData,
+  });
+
   function getSentences(index) {
     return {
       prev: sentencesInfo?.data?.data[index - 1],
@@ -36,7 +42,7 @@ export default function Sentences({ sentencesData }) {
       window.location.href = "/auth/login";
     }
   }
-  if (sentencesInfo?.isLoading)
+  if (sentencesInfo?.isLoading || user?.isLoading)
     return (
       <div className="flex w-full justify-center items-center min-h-[600px]">
         <div className="">
@@ -44,7 +50,7 @@ export default function Sentences({ sentencesData }) {
         </div>
       </div>
     );
-  console.log(sentencesInfo?.data?.data);
+
   return (
     <div className="">
       <div className="flex flex-col gap-3 mb-5">
@@ -92,7 +98,9 @@ export default function Sentences({ sentencesData }) {
 
                 <p className="">{text.content}</p>
               </div>
-              {text?.completed ? (
+              {text?.completions?.find((item) => {
+                return item?.completedBy?.id === user?.data?.session?.id;
+              }) ? (
                 <div className="text-2xl text-tertiary">
                   <ImCheckboxChecked />
                 </div>

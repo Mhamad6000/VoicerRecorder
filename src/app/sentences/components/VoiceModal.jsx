@@ -2,6 +2,7 @@
 import VoicerRecorder from "./VoiceRecorder";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
@@ -16,6 +17,7 @@ export default function VoiceModal({
   const searchParams = useSearchParams();
 
   const router = useRouter();
+  const [clearRecording, setClearRecording] = useState(false);
   // const sentenceInfo = useQuery({
   //   queryKey: ["singleSentence", searchParams.get("id")],
   //   queryFn: () =>
@@ -46,7 +48,11 @@ export default function VoiceModal({
         <span className="text-tertiary ml-2">&quot;</span>
       </h1>
       {/* <RecordMp3 /> */}
-      <VoicerRecorder sentenceId={sentenceInfo?.current?.id} />
+      <VoicerRecorder
+        sentenceId={sentenceInfo?.current?.id}
+        clearRecording={clearRecording}
+        setClearRecording={setClearRecording}
+      />
       <div className="flex justify-between items-center mt-20">
         <button
           onClick={() => {
@@ -59,6 +65,7 @@ export default function VoiceModal({
             } else {
               setActiveSentence(getSentences(sentenceIndex - 1));
               setSentenceIndex(sentenceIndex - 1);
+              setClearRecording(true);
             }
           }}
           //   href={`/texts/${sentenceInfo?.prev?.id}`}
@@ -78,6 +85,7 @@ export default function VoiceModal({
             } else {
               setActiveSentence(getSentences(sentenceIndex + 1));
               setSentenceIndex(sentenceIndex + 1);
+              setClearRecording(true);
             }
           }}
           className="bg-secondary disabled:opacity-60 disabled:cursor-not-allowed px-8 sm:px-10 py-2 text-white font-semibold rounded-md flex justify-center items-center"
